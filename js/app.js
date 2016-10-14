@@ -53,23 +53,19 @@ function initialize(){
 		        3,                                     //layers[1] = minzoom
 		        zoomThreshold,                         //layers[2] = maxzoom
 		        ["all",['==', 'UNIT', 'vtd'],['==', 'USPRSWIN', 'DFL']],         //layers[3] = filter
-		        activeTab.selection+'WIN',           //layers[4] = fill-color property -- geojson.winner (add this property to geojson)
-		        [['DFL', '#6582ac'],['R', '#cc7575'],['TIE', '#333']],  //layers[5] = fill-color stops -- ['dfl':blue, 'r':red,'i':yellow]
+		        activeTab.selection+'PCT',           //layers[4] = fill-color property -- geojson.winner (add this property to geojson)
+		        [[51, '#bea0dd'],[57, '#a9a5d9'],[100, '#6582ac']],  //layers[5] = fill-color stops -- ['dfl':blue, 'r':red,'i':yellow]
 		        activeTab.selection+'TOTAL',           //layers[6] = fill-opacity property
 		        [                                      //layers[7] = fill-opacity stops (based on MN population)
-		            [0, 0.25],
-		            [17000, 0.45],
-		            [53000, 0.6],
-		            [140000, 0.7],
-		            [280000, 0.8],
-		            [700000, .99]
-		        ],                                     
-		        'hsl(55, 11%, 96%)'                                //layers[8] = outline color
+		            [0, 0.1],[750, 0.25],[800, 0.5],[900, 0.7],[1500, 0.8],[2500, .99]
+		        ]
+		        ,                                     
+		        'rgba(255, 0, 0, 0)'                                //layers[8] = outline color
 	        ], 
 
-   	        ['vtd-R', zoomThreshold, 20, ["all",['==', 'UNIT', 'vtd'],['==', 'USPRSWIN', 'R']], activeTab.selection+'WIN', [['DFL', '#6582ac'],['R', '#cc7575'],['TIE', '#333']], activeTab.selection+'PCT', [[0, 0.25],[50, 0.45],[55, 0.6],[60, 0.7],[100, .99]], '#b8bbbf'],
-   	        ['vtd-hover', zoomThreshold, 20, ['all', ['==', 'UNIT', 'vtd'], ["==", "VTD", ""]], 'USPRSTOTAL', [[6000, 'orange']], activeTab.selection+'PCT', [[6000, .5]], 'white'],
-            ['cty-hover', 3, zoomThreshold, ['all', ['==', 'UNIT', 'cty'], ["==", "COUNTYNAME", ""]], 'USPRSTOTAL', [[6000, 'orange']], activeTab.selection+'TOTAL', [[6000, .5]], 'white']
+   	        ['vtd-R', 3, zoomThreshold, ["all",['==', 'UNIT', 'vtd'],['==', 'USPRSWIN', 'R']], activeTab.selection+'PCT', [[51, '#bea0dd'],[57, '#cc8899'],[100, '#cc7575']], activeTab.selection+'TOTAL', [[0, 0.1],[750, 0.25],[800, 0.5],[900, 0.7],[1500, 0.8],[2500, .99]], 'rgba(255, 0, 0, 0)'],
+   	        ['vtd-hover', zoomThreshold, 20, ['all', ['==', 'UNIT', 'vtd'], ["==", "VTD", ""]], 'USPRSTOTAL', [[6000, 'orange']], activeTab.selection+'PCT', [[6000, .5]], 'white']
+            
 	    ];      
 
         layers.forEach(addLayer)
@@ -172,7 +168,7 @@ function addLayer(layer) {
 		        "layout": {},
 		        "paint": {		        	
 		            "fill-color": {
-		            	"type":'categorical',
+		            	//"type":'categorical',
 		            	"property": layer[4], //layers[4] = fill-color property -- geojson.winner (add this property to geojson)
 		            	"stops": layer[5],    //layers[5] = fill-color stops -- ['dfl':blue, 'r':red,'i':yellow]
 		            },
